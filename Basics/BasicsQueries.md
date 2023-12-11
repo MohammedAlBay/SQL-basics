@@ -10,7 +10,40 @@
   - coaches: id, name
 
 ```
-<Your SQL query here>
+CREATE TABLE [IF NOT EXISTS] groups(
+  group_id int auto_increment,
+  name varchar(50) NOT NULL,
+  location text NOT NULL,
+  start_date date,
+  max_participants tinyint(4) NOT NULL
+);
+
+insert into groups('name', 'location', 'start_date', 'max_participants')
+values
+  ('Verou6', 'BRUSSELS', '2022-06-12', '25'),
+  ('Verou7', 'LUIK', '2023-01-17', '25');
+
+CREATE TABLE [IF NOT EXISTS] learners(
+  learner_id int auto_increment,
+  name varchar(50) NOT NULL,
+  email varchar(50),
+  active BOOLEAN NOT NULL
+);
+
+insert into learners('name', 'email', 'active')
+values
+  ('Mathias', 'mathias@hotmail.com', 'YES'),
+  ('Leo', 'leonidas@gmail.com', 'NO');
+
+CREATE TABLE [IF NOT EXISTS] coaches(
+  coach_id int auto_increment,
+  name varchar(50) NOT NULL,
+);
+
+insert into coaches('name')
+values
+  ('Sarah'),
+  ('Erwin');
 
 ```
 
@@ -19,7 +52,12 @@
   - Get the name and email of the first learner, and alias the name to learner_name*
 
 ```
-<Your SQL query here>
+SELECT name, email FROM learners
+WHERE learner_id = 1;
+
+UPDATE learners
+SET name = 'learner_name'
+WHERE learner_id = 1;
 
 ```
 
@@ -28,7 +66,21 @@
   - Introduce a new field status which can contain a long text indicating the reason for postponing (bonus points if it's a creative one)
 
 ```
-<Your SQL query here>
+SELECT start_date 
+FROM groups
+ORDER BY group_id
+LIMIT 1;
+
+UPDATE groups
+SET start_date = DATEADD('2023-10-03', INTERVAL 2 MONTH)
+WHERE group_id = 1;
+
+ALTER TABLE groups
+add status longtext;
+
+
+
+
 
 ```
 
@@ -36,7 +88,8 @@
   - Delete someone from the learners table*
 
 ```
-<Your SQL query here>
+DELETE FROM learners
+WHERE learner_id = 1;
 
 ```
 
